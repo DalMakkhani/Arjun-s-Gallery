@@ -32,19 +32,6 @@ const About = () => {
               </div>
             </div>
             
-            <div className="grid lg:grid-cols-2 gap-6">
-              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                  About Photo 1
-                </div>
-              </div>
-              <div className="aspect-[4/3] bg-muted relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                  About Photo 2
-                </div>
-              </div>
-            </div>
-            
             <div className="space-y-6 text-lg leading-relaxed">
               <p>
                 Photography, for me, is not about perfection. It's about presence. 
