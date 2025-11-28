@@ -78,19 +78,22 @@ const RichTextEditor = ({ content, onChange, placeholder = "Tell your story..." 
 
   const addImageFromUpload = (url: string) => {
     if (editor) {
-      const width = imageWidth !== 'auto' ? imageWidth : '100%';
-      const float = imageFloat !== 'none' ? imageFloat : undefined;
+      let styleString = 'height: auto; border-radius: 0.5rem;';
       
-      let styleString = `max-width: 100%; height: auto; border-radius: 0.5rem;`;
-      
-      if (width !== '100%') {
-        styleString = `width: ${width}; height: auto; border-radius: 0.5rem;`;
+      // Handle width
+      if (imageWidth === 'auto') {
+        styleString += ' max-width: 100%;';
+      } else {
+        styleString += ` width: ${imageWidth};`;
       }
       
-      if (float) {
-        styleString += ` float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};`;
+      // Handle text wrapping
+      if (imageFloat === 'left') {
+        styleString += ' float: left; margin: 0 1rem 1rem 0;';
+      } else if (imageFloat === 'right') {
+        styleString += ' float: right; margin: 0 0 1rem 1rem;';
       } else {
-        styleString += ` display: block; margin: 1rem auto;`;
+        styleString += ' display: block; margin: 1rem auto;';
       }
       
       editor.chain().focus().setImage({ 
@@ -106,19 +109,22 @@ const RichTextEditor = ({ content, onChange, placeholder = "Tell your story..." 
 
   const addImageFromUrl = () => {
     if (imageUrl && editor) {
-      const width = imageWidth !== 'auto' ? imageWidth : '100%';
-      const float = imageFloat !== 'none' ? imageFloat : undefined;
+      let styleString = 'height: auto; border-radius: 0.5rem;';
       
-      let styleString = `max-width: 100%; height: auto; border-radius: 0.5rem;`;
-      
-      if (width !== '100%') {
-        styleString = `width: ${width}; height: auto; border-radius: 0.5rem;`;
+      // Handle width
+      if (imageWidth === 'auto') {
+        styleString += ' max-width: 100%;';
+      } else {
+        styleString += ` width: ${imageWidth};`;
       }
       
-      if (float) {
-        styleString += ` float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};`;
+      // Handle text wrapping
+      if (imageFloat === 'left') {
+        styleString += ' float: left; margin: 0 1rem 1rem 0;';
+      } else if (imageFloat === 'right') {
+        styleString += ' float: right; margin: 0 0 1rem 1rem;';
       } else {
-        styleString += ` display: block; margin: 1rem auto;`;
+        styleString += ' display: block; margin: 1rem auto;';
       }
       
       editor.chain().focus().setImage({ 

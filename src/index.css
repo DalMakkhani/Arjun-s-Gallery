@@ -184,6 +184,7 @@ All colors MUST be HSL.
   /* Rich Text Editor Styles */
   .ProseMirror {
     @apply focus:outline-none;
+    overflow-wrap: break-word;
   }
   
   .ProseMirror p.is-editor-empty:first-child::before {
@@ -211,8 +212,13 @@ All colors MUST be HSL.
     outline-offset: 2px;
   }
   
-  /* Clear floats after paragraphs with floated images */
-  .ProseMirror p::after {
+  /* Allow text to wrap around floated images */
+  .ProseMirror p {
+    min-height: 1.5em;
+  }
+  
+  /* Clear floats properly */
+  .ProseMirror::after {
     content: "";
     display: table;
     clear: both;
