@@ -78,19 +78,24 @@ const RichTextEditor = ({ content, onChange, placeholder = "Tell your story..." 
 
   const addImageFromUpload = (url: string) => {
     if (editor) {
-      const width = imageWidth !== 'auto' ? imageWidth : undefined;
+      const width = imageWidth !== 'auto' ? imageWidth : '100%';
       const float = imageFloat !== 'none' ? imageFloat : undefined;
       
-      const style = `
-        ${width ? `width: ${width};` : 'max-width: 100%;'}
-        height: auto;
-        ${float ? `float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};` : 'display: block; margin: 1rem auto;'}
-        border-radius: 0.5rem;
-      `.trim();
+      let styleString = `max-width: 100%; height: auto; border-radius: 0.5rem;`;
+      
+      if (width !== '100%') {
+        styleString = `width: ${width}; height: auto; border-radius: 0.5rem;`;
+      }
+      
+      if (float) {
+        styleString += ` float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};`;
+      } else {
+        styleString += ` display: block; margin: 1rem auto;`;
+      }
       
       editor.chain().focus().setImage({ 
         src: url,
-        style: style
+        style: styleString
       }).run();
       
       setImageDialogOpen(false);
@@ -101,19 +106,24 @@ const RichTextEditor = ({ content, onChange, placeholder = "Tell your story..." 
 
   const addImageFromUrl = () => {
     if (imageUrl && editor) {
-      const width = imageWidth !== 'auto' ? imageWidth : undefined;
+      const width = imageWidth !== 'auto' ? imageWidth : '100%';
       const float = imageFloat !== 'none' ? imageFloat : undefined;
       
-      const style = `
-        ${width ? `width: ${width};` : 'max-width: 100%;'}
-        height: auto;
-        ${float ? `float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};` : 'display: block; margin: 1rem auto;'}
-        border-radius: 0.5rem;
-      `.trim();
+      let styleString = `max-width: 100%; height: auto; border-radius: 0.5rem;`;
+      
+      if (width !== '100%') {
+        styleString = `width: ${width}; height: auto; border-radius: 0.5rem;`;
+      }
+      
+      if (float) {
+        styleString += ` float: ${float}; margin: ${float === 'left' ? '0 1rem 1rem 0' : '0 0 1rem 1rem'};`;
+      } else {
+        styleString += ` display: block; margin: 1rem auto;`;
+      }
       
       editor.chain().focus().setImage({ 
         src: imageUrl,
-        style: style
+        style: styleString
       }).run();
       
       setImageUrl('');
