@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Pure white and black for editorial style */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
+
+    --radius: 0rem;
+    
+    /* Minimal grain */
+    --grain-opacity: 0.008;
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s ease-out;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 100%;
+    
+    --grain-opacity: 0.015;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  /* Film grain animation */
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 35%); }
+    90% { transform: translate(-10%, 10%); }
+  }
+  
+  .film-grain::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    width: 200%;
+    height: 200vh;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: var(--grain-opacity);
+    pointer-events: none;
+    animation: grain 8s steps(10) infinite;
+    z-index: 9999;
+  }
+  
+  /* Fade in animation */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .delay-100 {
+    animation-delay: 0.1s;
+    opacity: 0;
+  }
+  
+  .delay-200 {
+    animation-delay: 0.2s;
+    opacity: 0;
+  }
+  
+  .delay-300 {
+    animation-delay: 0.3s;
+    opacity: 0;
+  }
+  
+  .delay-400 {
+    animation-delay: 0.4s;
+    opacity: 0;
+  }
+  
+  /* Scroll animations */
+  .fade-in-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .fade-in-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Page transition */
+  .page-enter {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  /* Rich Text Editor Styles */
+  .ProseMirror {
+    @apply focus:outline-none;
+  }
+  
+  .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    height: 0;
+  }
+  
+  .ProseMirror img,
+  .editor-image {
+    @apply cursor-pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .ProseMirror img:hover,
+  .editor-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .ProseMirror img.ProseMirror-selectednode {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  /* Clear floats after paragraphs with floated images */
+  .ProseMirror p::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  .ProseMirror h1 {
+    @apply text-4xl font-display font-semibold mb-4 mt-6;
+  }
+  
+  .ProseMirror h2 {
+    @apply text-3xl font-display font-semibold mb-3 mt-5;
+  }
+  
+  .ProseMirror h3 {
+    @apply text-2xl font-display font-semibold mb-2 mt-4;
+  }
+  
+  .ProseMirror ul,
+  .ProseMirror ol {
+    @apply pl-6 my-4;
+  }
+  
+  .ProseMirror ul {
+    @apply list-disc;
+  }
+  
+  .ProseMirror ol {
+    @apply list-decimal;
+  }
+  
+  .ProseMirror li {
+    @apply mb-2;
+  }
+  
+  .ProseMirror blockquote {
+    @apply border-l-4 border-primary pl-4 italic my-4;
+  }
+  
+  .ProseMirror a {
+    @apply text-blue-500 underline;
+  }
+  
+  .ProseMirror code {
+    @apply bg-muted px-2 py-1 rounded text-sm;
+  }
+  
+  .ProseMirror pre {
+    @apply bg-muted p-4 rounded my-4 overflow-x-auto;
+  }
+}
+
