@@ -49,6 +49,7 @@ const Index = () => {
                 src="/hero-railway.jpg" 
                 alt="Railway tracks with palm trees" 
                 className="max-h-full w-auto h-auto object-contain"
+                loading="lazy"
               />
             </div>
           </div>
@@ -67,6 +68,7 @@ const Index = () => {
                 src="/featured-photo.jpg" 
                 alt="Featured photograph" 
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
             
