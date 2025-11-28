@@ -29,7 +29,7 @@ const Index = () => {
                 </h2>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
-                What good is a caamera if it can't capture emotions. 
+                What good is a camera if it can't capture emotions. 
               </p>
               <div className="flex gap-4 pt-4">
                 <Link 
